@@ -101,17 +101,11 @@ function updateDisplay() {
     mElement.innerHTML = ''
     sElement.innerHTML = totalSeconds
     msElement.innerHTML = 's'
-    
-    // Hide the colons in seconds only mode
-    element.classList.add('seconds-only')
   } else {
-    // Show normal HH:MM:SS:MS format
-    hElement.innerHTML = hous
-    mElement.innerHTML = mins
-    sElement.innerHTML = secs
+    // Show normal HH:MM:SS:MS format with colons
+    hElement.innerHTML = hous + ':'
+    mElement.innerHTML = mins + ':'
+    sElement.innerHTML = secs + ':'
     msElement.innerHTML = mils
-    
-    // Show the colons in normal mode
-    element.classList.remove('seconds-only')
   }
 }
