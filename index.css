@@ -58,16 +58,14 @@ button {
   cursor: pointer;
 }
 
-/* Hide colons in seconds only mode */
-#time.seconds-only span:nth-child(1)::after,
-#time.seconds-only span:nth-child(2)::after,
-#time.seconds-only span:nth-child(3)::after {
-  content: none;
+/* Add colons by default (normal mode) */
+#time span:nth-child(1)::after,
+#time span:nth-child(2)::after,
+#time span:nth-child(3)::after {
+  content: ":";
 }
 
-/* Add colons in normal mode */
-#time:not(.seconds-only) span:nth-child(1)::after,
-#time:not(.seconds-only) span:nth-child(2)::after,
-#time:not(.seconds-only) span:nth-child(3)::after {
-  content: ":";
+/* Hide colons in seconds only mode */
+#time.seconds-only span::after {
+  content: none;
 }
