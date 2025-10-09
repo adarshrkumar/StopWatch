@@ -29,7 +29,9 @@ h1 {
 
   & > span {
     display: inline-block;
-    min-width: 65px;
+    &:not(.colon) {
+      min-width: 65px;
+    }
 
     text-align: center;
   }
