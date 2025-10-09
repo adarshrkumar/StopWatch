@@ -61,6 +61,15 @@ button:active {
   background-color: #d0d0d0;
 }
 
+button:focus-visible {
+  outline: 2px solid #007acc;
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .toggle-container {
   margin-top: 1rem;
 }
