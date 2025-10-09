@@ -38,8 +38,27 @@ h1 {
 }
 
 button {
+  all: unset;
+  display: inline-block;
   cursor: pointer;
   font-weight: bold;
+  min-width: 4rem;
+  height: 2rem;
+  padding: 8px 16px;
+  border: 2px solid #333;
+  border-radius: 6px;
+  background-color: #f0f0f0;
+  font-size: 1rem;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+button:active {
+  background-color: #d0d0d0;
 }
 
 .toggle-container {
