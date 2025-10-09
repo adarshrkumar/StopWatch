@@ -6,10 +6,10 @@ let hous = 0
 let interval
 let time
 let element = document.querySelector("#time")
-let hElement = element.querySelector(':nth-child(1)')
-let mElement = element.querySelector(':nth-child(2)')
-let sElement = element.querySelector(':nth-child(3)')
-let msElement = element.querySelector(':nth-child(4)')
+let hElement = element.querySelector('.hours')
+let mElement = element.querySelector('.minutes')
+let sElement = element.querySelector('.seconds')
+let msElement = element.querySelector('.milliseconds')
 let button = document.querySelector('button[main]')
 let rButton = document.querySelector('button[reset]')
 let secondsOnlyToggle = document.querySelector('#seconds-only-toggle')
@@ -97,15 +97,17 @@ function updateDisplay() {
   if (secondsOnlyToggle.checked) {
     // Show only seconds with decimal places
     const totalSeconds = (totalElapsedMs / 1000).toFixed(2)
+    element.classList.add('seconds-only')
     hElement.innerHTML = ''
     mElement.innerHTML = ''
     sElement.innerHTML = totalSeconds
     msElement.innerHTML = 's'
   } else {
-    // Show normal HH:MM:SS:MS format with colons
-    hElement.innerHTML = hous + ':'
-    mElement.innerHTML = mins + ':'
-    sElement.innerHTML = secs + ':'
+    // Show normal HH:MM:SS:MS format
+    element.classList.remove('seconds-only')
+    hElement.innerHTML = hous
+    mElement.innerHTML = mins
+    sElement.innerHTML = secs
     msElement.innerHTML = mils
   }
 }

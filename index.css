@@ -57,3 +57,10 @@ button {
   height: 18px;
   cursor: pointer;
 }
+
+/* Hide hours, minutes, and colons in seconds-only mode */
+#time.seconds-only .hours,
+#time.seconds-only .minutes,
+#time.seconds-only .colon {
+  display: none;
+}
