@@ -1,8 +1,8 @@
 let dTitle = document.title
-let mils = 00
-let secs = 00
-let mins = 00
-let hous = 00
+let mils = 0
+let secs = 0
+let mins = 0
+let hous = 0
 let interval
 let time
 let element = document.querySelector("#time")
@@ -12,9 +12,12 @@ let sElement = element.querySelector(':nth-child(3)')
 let msElement = element.querySelector(':nth-child(4)')
 let button = document.querySelector('button[main]')
 let rButton = document.querySelector('button[reset]')
+let secondsOnlyToggle = document.querySelector('#seconds-only-toggle')
+let totalElapsedMs = 0
 
 button.setAttribute('onclick', 'start(event)')
 rButton.setAttribute('onclick', 'reset(event)')
+secondsOnlyToggle.addEventListener('change', updateDisplay)
 
 let isIt = false
 function start() {
@@ -38,43 +41,35 @@ function reset() {
   button.setAttribute('onclick', 'start(event)')
   button.innerHTML = 'Start'
   rButton.setAttribute('hidden', '')
-  hous = 00
-  mins = 00
-  secs = 00
-  mils = 00
-  if (String(mils).split('').length === 1) {
-    mils = '0' + mils
-  }
-  if (String(secs).split('').length === 1) {
-    secs = '0' + secs
-  }
-  if (String(mins).split('').length === 1) {
-    mins = '0' + mins
-  }
-  if (String(hous).split('').length === 1) {
-    hous = '0' + hous
-  }
+  hous = 0
+  mins = 0
+  secs = 0
+  mils = 0
+  totalElapsedMs = 0
+  mils = String(mils).padStart(2, '0')
+  secs = String(secs).padStart(2, '0')
+  mins = String(mins).padStart(2, '0')
+  hous = String(hous).padStart(2, '0')
   time = '00:00:00:00'
-  hElement.innerHTML = hous
-  mElement.innerHTML = mins
-  sElement.innerHTML = secs
-  msElement.innerHTML = mils
+  updateDisplay()
   document.title = dTitle
   localStorage.removeItem('time')
 }
 
 function myTimer() {
   mils = Number(mils) + 1
+  totalElapsedMs += 10 // Each tick is 10ms
+  
   if (mils >= 99) {
-    mils = 00
+    mils = 0
     secs = Number(secs) + 1
   }
   if (secs >= 59) {
-    secs = 00
+    secs = 0
     mins = Number(mins) + 1
   }
   if (mins >= 59) {
-    mins = 00
+    mins = 0
     hous = Number(hous) + 1
   }
   if (String(mils).split('').length === 1) {
@@ -95,8 +90,28 @@ function myTimer() {
   }
   localStorage.setItem('time', time)
   document.title = `${time.split(`:${mils}`)[0]} | StopWatch`
-  hElement.innerHTML = hous
-  mElement.innerHTML = mins
-  sElement.innerHTML = secs
-  msElement.innerHTML = mils
+  updateDisplay()
+}
+
+function updateDisplay() {
+  if (secondsOnlyToggle.checked) {
+    // Show only seconds with decimal places
+    const totalSeconds = (totalElapsedMs / 1000).toFixed(2)
+    hElement.innerHTML = ''
+    mElement.innerHTML = ''
+    sElement.innerHTML = totalSeconds
+    msElement.innerHTML = 's'
+    
+    // Hide the colons in seconds only mode
+    element.classList.add('seconds-only')
+  } else {
+    // Show normal HH:MM:SS:MS format
+    hElement.innerHTML = hous
+    mElement.innerHTML = mins
+    sElement.innerHTML = secs
+    msElement.innerHTML = mils
+    
+    // Show the colons in normal mode
+    element.classList.remove('seconds-only')
+  }
 }
